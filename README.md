@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Demo Todo App
 
-## Getting Started
+A multi-user organizational todo management app built with Next.js 16, Convex, and custom JWT authentication.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Custom JWT Authentication** with bcrypt password hashing
+- **Role-based Access Control**: CEO, Boss, Employee
+- **Departments** with boss assignment
+- **Todo Management** with expiration dates, priority levels, and status tracking
+- **File Attachments** via Vercel Blob storage
+- **Real-time updates** powered by Convex
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Roles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **CEO**: Full organization overview, all departments, all todos, user management
+- **Boss**: Department-scoped view, team management, assign todos to employees
+- **Employee**: Personal todo view only (own assigned tasks)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- **Frontend**: Next.js 16, Tailwind CSS
+- **Backend**: Convex (database + server functions)
+- **Auth**: Custom JWT with bcrypt (jose + bcryptjs)
+- **Storage**: Vercel Blob
+- **Deployment**: Vercel
 
-To learn more about Next.js, take a look at the following resources:
+## Local Development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up environment variables (copy `.env.example` to `.env.local`):
+   ```
+   NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+   JWT_SECRET=your-jwt-secret-at-least-32-chars
+   BLOB_READ_WRITE_TOKEN=your-vercel-blob-token
+   ```
+4. Start the Convex dev server:
+   ```bash
+   npx convex dev
+   ```
+5. Start the Next.js dev server:
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment to Vercel
 
-## Deploy on Vercel
+1. Push to GitHub
+2. Connect repository in Vercel
+3. Set environment variables in Vercel dashboard:
+   - `NEXT_PUBLIC_CONVEX_URL`
+   - `JWT_SECRET`
+   - `BLOB_READ_WRITE_TOKEN`
+   - `CONVEX_DEPLOY_KEY` (from Convex dashboard)
+4. Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_CONVEX_URL` | Convex deployment URL |
+| `JWT_SECRET` | Secret key for signing JWTs (min 32 chars) |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob storage token |
+| `CONVEX_DEPLOY_KEY` | Convex production deploy key (CI/CD) |
