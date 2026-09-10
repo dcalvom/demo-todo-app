@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx convex deploy --typecheck=disable --env-file .env.production && next build",
+  "buildCommand": "npx convex deploy --typecheck=disable && next build",
   "outputDirectory": ".next",
   "framework": "nextjs"
 }
